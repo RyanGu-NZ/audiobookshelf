@@ -34,6 +34,16 @@ describe('parseNameString', () => {
       expect(result.names).to.deep.equal(['John Smith', 'Jane Doe', 'John Doe'])
     })
 
+    it('parses comma-separated names containing narrow no-break spaces', () => {
+      const result = parse('Joanna\u202FWyatt, Jane\u202FDoe, John\u202FSmith')
+      expect(result.names).to.deep.equal(['Joanna\u202FWyatt', 'Jane\u202FDoe', 'John\u202FSmith'])
+    })
+
+    it('parses comma-separated names containing thin spaces', () => {
+      const result = parse('Douglas\u2009Gresham, David\u2009Suchet, Jane\u2009Doe')
+      expect(result.names).to.deep.equal(['Douglas\u2009Gresham', 'David\u2009Suchet', 'Jane\u2009Doe'])
+    })
+
     it('parses multiple names separated by semicolon', () => {
       const result = parse('John Smith; Jane Doe')
       expect(result.names).to.deep.equal(['John Smith', 'Jane Doe'])
